@@ -21,7 +21,7 @@ const Game: NextPage = () => {
   const modeMap: Record<string, string> = {
     "party": "Үдэшлэг",
     "dirty": "+21",
-    "dares": "Үнэн",
+    "dares": "Хий эсвэл Уу",
     "mixed": "Холимог",
     "normal": "Энгийн"
   };
@@ -44,7 +44,7 @@ const Game: NextPage = () => {
       gradient = 'bg-gradient-to-r from-[#FF006D] to-[#FC0023]';
       prearr = [...dirty];
       break;
-    case "Үнэн":
+    case "Хий эсвэл Уу":
       gradient = 'bg-gradient-to-r from-[#EA00C3] to-[#BE00FF]';
       prearr = [...dares];
       break;
