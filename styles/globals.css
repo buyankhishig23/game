@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fix for mobile viewport */
 @supports (-webkit-touch-callout: none) {
   .fixmobilevh {
     height: -webkit-fill-available;
@@ -12,4 +13,9 @@
   .fixmobilevh {
     height: 100vh;
   }
+}
+
+/* Dark mode base */
+html, body {
+  @apply bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300;
 }

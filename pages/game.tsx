@@ -10,6 +10,7 @@ import dares from '../bank/dares.json';
 import dirty from '../bank/dirty.json';
 import normal from '../bank/normal.json';
 import party from '../bank/party.json';
+import ThemeToggle from '../components/ThemeToggle';
 
 const Game: NextPage = () => {
   const router = useRouter();
@@ -130,6 +131,10 @@ const Game: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <div className="absolute top-4 right-4">
+            <ThemeToggle /> 
+      </div>
+
       <div className="fixmobilevh flex flex-col">
         <Link href='/'>
           <div className="cursor-pointer">
@@ -153,7 +158,7 @@ const Game: NextPage = () => {
 
         <footer className="flex flex-col text-center">
           <div className="select-none text-gray-700 p-2 mb-2 text-opacity-60">
-            © {getYear()} Buyanaa
+            © {getYear()} Buyanaa. All rights reserved.
           </div>
         </footer>
       </div>

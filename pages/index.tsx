@@ -1,7 +1,8 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Link from 'next/link'
-import Script from 'next/script'
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Link from 'next/link';
+import Script from 'next/script';
+import ThemeToggle from '../components/ThemeToggle';
 
 const Home: NextPage = () => {
   return (
@@ -23,12 +24,17 @@ const Home: NextPage = () => {
         <meta name="тайлбар" content="Хөгжилтэй, сурталчилгаагүй уух тоглоом." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+        <div className="absolute top-4 right-4">
+        {/* Replace with your actual theme toggle component */}
+           <ThemeToggle /> 
+      </div>
 
       <div className="container flex mx-auto p-4 fixmobilevh">
         <div className="m-auto">
           <div className="select-none text-4xl text-header font-semibold mx-auto text-center align-middle pb-2">
             Хариул <span className="text-xl align-middle">эсвэл</span> Уу
           </div>
+          
 
           {/* <Link href='/manipulate' className="cursor-default">
             <div className="select-none rounded-lg bg-[#8D889F] text-center text-white font-bold max-w-fit px-4 m-auto">
