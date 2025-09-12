@@ -153,7 +153,7 @@ const Game: NextPage = () => {
 
         <footer className="flex flex-col text-center">
           <div className="select-none text-gray-700 p-2 mb-2 text-opacity-60">
-            © {getYear()}
+            © {getYear()} Buyanaa
           </div>
         </footer>
       </div>
