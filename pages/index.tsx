@@ -31,8 +31,14 @@ const Home: NextPage = () => {
 
       <div className="container flex mx-auto p-4 fixmobilevh">
         <div className="m-auto">
-          <div className="select-none text-4xl text-header font-semibold mx-auto text-center align-middle pb-2">
+          {/* <div className="select-none text-4xl text-header font-semibold mx-auto text-center align-middle pb-2">
             Хариул <span className="text-xl align-middle">эсвэл</span> Уу
+          </div> */}
+
+           <div className="select-none text-4xl text-header font-semibold mx-auto text-center align-middle pb-2">
+            <h1 className="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 drop-shadow-lg">
+              🎉 Хариул <span className="text-4xl md:text-6xl">эсвэл</span> Уу 🍹
+            </h1>
           </div>
           
 
