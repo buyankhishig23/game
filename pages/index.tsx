@@ -22,6 +22,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Хариул эсвэл Уу</title>
         <meta name="тайлбар" content="Хөгжилтэй, сурталчилгаагүй уух тоглоом." />
+        <meta name="keywords" content="truth or drink, хариул эсвэл уу, уух тоглоом, party game, +21 game, даалгавар, хутга асуулт, hutga asuult" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="absolute top-4 left-4">
