@@ -18,7 +18,21 @@ const Home: NextPage = () => {
             gtag('config', 'G-W9M7TVKHRZ');
           `,
         }}
+        
       />
+
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-GNSGGMNMF1"/>
+      <Script
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-GNSGGMNMF1');
+          `,
+        }}
+      />
+      
       <Head>
         <title>Хариул эсвэл Уу</title>
         <meta name="тайлбар" content="Хөгжилтэй, сурталчилгаагүй уух тоглоом." />
