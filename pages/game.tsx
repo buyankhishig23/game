@@ -12,59 +12,64 @@ import normal from '../bank/normal.json';
 import party from '../bank/party.json';
 import ThemeToggle from '../components/ThemeToggle';
 
+const modeMap: Record<string, string> = {
+  "party": "Үдэшлэг",
+  "dirty": "+21",
+  "dares": "Хий эсвэл Уу",
+  "mixed": "Холимог",
+  "normal": "Энгийн"
+};
+
+const customKeyMap: Record<string, string> = {
+  "Үдэшлэг": "custom-party",
+  "+21": "custom-dirty",
+  "Хий эсвэл Уу": "custom-dares",
+  "Холимог": "custom-mix",
+  "Энгийн": "custom-normal"
+};
+
 const Game: NextPage = () => {
   const router = useRouter();
-  const [index, setIndex] = useState(0);
+  const [mode, setMode] = useState("Энгийн");
+  const [prearr, setPrearr] = useState<string[]>([]);
+  const [gradient, setGradient] = useState("");
   const [questions, setQuestions] = useState<string[]>([]);
   const [question, setQuestion] = useState("");
+  const [index, setIndex] = useState(0);
 
-  const modeMap: Record<string, string> = {
-    "party": "Үдэшлэг",
-    "dirty": "+21",
-    "dares": "Хий эсвэл Уу",
-    "mixed": "Холимог",
-    "normal": "Энгийн"
-  };
+  // Update mode based on query
+  useEffect(() => {
+    if (!router.isReady) return;
+    const queryMode = typeof router.query.mode === "string" ? router.query.mode.toLowerCase() : "normal";
+    setMode(modeMap[queryMode] || "Энгийн");
+  }, [router.isReady, router.query.mode]);
 
-  let mode = "Энгийн";
-  if (router.query.mode && typeof router.query.mode === "string") {
-    const queryMode = router.query.mode.toLowerCase();
-    mode = modeMap[queryMode] || "Энгийн";
-  }
+  // Update gradient and prearr when mode changes
+  useEffect(() => {
+    switch (mode) {
+      case "Үдэшлэг":
+        setGradient('bg-gradient-to-r from-[#FFC300] to-[#FF8900]');
+        setPrearr([...party]);
+        break;
+      case "+21":
+        setGradient('bg-gradient-to-r from-[#FF006D] to-[#FC0023]');
+        setPrearr([...dirty]);
+        break;
+      case "Хий эсвэл Уу":
+        setGradient('bg-gradient-to-r from-[#EA00C3] to-[#BE00FF]');
+        setPrearr([...dares]);
+        break;
+      case "Холимог":
+        setGradient('bg-black');
+        setPrearr([...normal, ...party, ...dirty, ...dares]);
+        break;
+      default:
+        setGradient('bg-gradient-to-r from-[#00C5FF] to-[#009BFF]');
+        setPrearr([...normal]);
+    }
+  }, [mode]);
 
-  let gradient = '';
-  let prearr: string[] = [];
-
-  switch (mode) {
-    case "Үдэшлэг":
-      gradient = 'bg-gradient-to-r from-[#FFC300] to-[#FF8900]';
-      prearr = [...party];
-      break;
-    case "+21":
-      gradient = 'bg-gradient-to-r from-[#FF006D] to-[#FC0023]';
-      prearr = [...dirty];
-      break;
-    case "Хий эсвэл Уу":
-      gradient = 'bg-gradient-to-r from-[#EA00C3] to-[#BE00FF]';
-      prearr = [...dares];
-      break;
-    case "Холимог":
-      gradient = 'bg-black';
-      prearr = [...normal, ...party, ...dirty, ...dares];
-      break;
-    default:
-      gradient = 'bg-gradient-to-r from-[#00C5FF] to-[#009BFF]';
-      prearr = [...normal];
-  }
-
-  const customKeyMap: Record<string, string> = {
-    "Үдэшлэг": "custom-party",
-    "+21": "custom-dirty",
-    "Хий эсвэл Уу": "custom-dares",
-    "Холимог": "custom-mix",
-    "Энгийн": "custom-normal"
-  };
-
+  // Load questions including any custom ones
   const loadQuestions = () => {
     let arr = [...prearr];
     const key = customKeyMap[mode];
@@ -75,7 +80,6 @@ const Game: NextPage = () => {
       // ignore errors
     }
     setQuestions(arr);
-    // reset index if needed
     if (index >= arr.length) setIndex(0);
     setQuestion(arr[index] || arr[0] || "");
   };
@@ -96,13 +100,12 @@ const Game: NextPage = () => {
     loadQuestions();
     document.getElementById('maindiv')?.focus();
 
-    // Listen for localStorage changes in case user adds questions in another tab
     const handleStorage = (e: StorageEvent) => {
       if (e.key === customKeyMap[mode]) loadQuestions();
     };
     window.addEventListener('storage', handleStorage);
     return () => window.removeEventListener('storage', handleStorage);
-  }, [router.isReady, mode]);
+  }, [router.isReady, mode, prearr]);
 
   const celebrate = async () => {
     const confetti = (await import("canvas-confetti")).default;
