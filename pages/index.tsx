@@ -24,6 +24,16 @@ const Home: NextPage = () => {
         <meta name="тайлбар" content="Хөгжилтэй, сурталчилгаагүй уух тоглоом." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div className="absolute top-4 left-4">
+        {/* Replace with your actual theme toggle component */}
+           <Link 
+    href="/add-question" 
+    className="inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold text-base hover:from-green-600 hover:to-green-700 transition"
+  >
+    ➕ Асуулт нэмэх
+  </Link>
+      </div>
+
         <div className="absolute top-4 right-4">
         {/* Replace with your actual theme toggle component */}
            <ThemeToggle /> 
@@ -41,17 +51,14 @@ const Home: NextPage = () => {
         </div>  
 
 
-          {/* <Link href='/manipulate' className="cursor-default">
-            <div className="select-none rounded-lg bg-[#8D889F] text-center text-white font-bold max-w-fit px-4 m-auto">
-              O N L I N E
-            </div>
-          </Link> */}
+         <div className="text-center mt-6">
+ 
+</div>
 
-          <br/>
 
-          <div className="select-none text-center font-bold max-w-fit px-4 m-auto text-[#8D889F] pb-4 pt-4">
-             Асуултын&nbsp;төрөл:
-          </div>
+         <div className="select-none text-center font-bold max-w-fit px-4 m-auto text-[#8D889F] pb-4 pt-4 text-2xl">
+  Асуултын&nbsp;төрөл:
+</div>
 
           <div className="grid grid-cols-2 gap-4">
             <Link href='/game?mode=normal'>

@@ -57,6 +57,29 @@ const Game: NextPage = () => {
       prearr = [...normal];
   }
 
+  const customKeyMap: Record<string, string> = {
+    "Үдэшлэг": "custom-party",
+    "+21": "custom-dirty",
+    "Хий эсвэл Уу": "custom-dares",
+    "Холимог": "custom-mix",
+    "Энгийн": "custom-normal"
+  };
+
+  const loadQuestions = () => {
+    let arr = [...prearr];
+    const key = customKeyMap[mode];
+    try {
+      const custom = JSON.parse(localStorage.getItem(key) || "[]");
+      arr = [...arr, ...custom];
+    } catch (e) {
+      // ignore errors
+    }
+    setQuestions(arr);
+    // reset index if needed
+    if (index >= arr.length) setIndex(0);
+    setQuestion(arr[index] || arr[0] || "");
+  };
+
   useEffect(() => {
     if (!router.isReady) return;
 
@@ -70,12 +93,17 @@ const Game: NextPage = () => {
     }
 
     setIndex(newstart);
-    setQuestions(prearr);
-    setQuestion(prearr[newstart]);
+    loadQuestions();
     document.getElementById('maindiv')?.focus();
-  }, [router.isReady]);
 
-  // 🎉 Confetti celebration (dynamic import)
+    // Listen for localStorage changes in case user adds questions in another tab
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === customKeyMap[mode]) loadQuestions();
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, [router.isReady, mode]);
+
   const celebrate = async () => {
     const confetti = (await import("canvas-confetti")).default;
     confetti({
@@ -86,16 +114,15 @@ const Game: NextPage = () => {
   };
 
   const nextQuestion = () => {
+    if (!questions.length) return;
     const nextIndex = (index + 1) % questions.length;
     setIndex(nextIndex);
     setQuestion(questions[nextIndex]);
-
-    if (nextIndex === questions.length - 1) {
-      celebrate();
-    }
+    if (nextIndex === questions.length - 1) celebrate();
   };
 
   const prevQuestion = () => {
+    if (!questions.length) return;
     const prevIndex = (index - 1 + questions.length) % questions.length;
     setIndex(prevIndex);
     setQuestion(questions[prevIndex]);
@@ -156,7 +183,6 @@ const Game: NextPage = () => {
           </div>
         </div>
 
-        {/* Navigation buttons */}
         <div className="flex justify-center gap-4 mt-4">
           <button
             onClick={prevQuestion}
@@ -172,7 +198,6 @@ const Game: NextPage = () => {
           </button>
         </div>
 
-        {/* Progress bar */}
         <div className="w-full max-w-3xl mx-auto mt-4">
           <div className="h-3 bg-gray-700 rounded-full overflow-hidden">
             <div
