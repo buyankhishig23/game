@@ -17,7 +17,6 @@ const Game: NextPage = () => {
   const [index, setIndex] = useState(0);
   const [questions, setQuestions] = useState<string[]>([]);
   const [question, setQuestion] = useState("");
-  const [stopScroll, setStopScroll] = useState(false);
 
   const modeMap: Record<string, string> = {
     "party": "Үдэшлэг",
@@ -64,18 +63,7 @@ const Game: NextPage = () => {
     const ind = parseInt(String(router.query.q)) || 0;
     const offset = parseInt(String(router.query.offset)) || 0;
 
-    let currentIndex = prearr.length;
-    let randomIndex: number;
-    let temp = ind < prearr.length ? prearr[ind] : "";
-
-    // Shuffle
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-      [prearr[currentIndex], prearr[randomIndex]] = [prearr[randomIndex], prearr[currentIndex]];
-    }
-
-    let newstart = temp ? prearr.indexOf(temp) : 0;
+    let newstart = ind < prearr.length ? ind : 0;
     if (!isNaN(offset)) {
       newstart = newstart - offset;
       if (newstart < 0) newstart = prearr.length + newstart;
@@ -87,10 +75,24 @@ const Game: NextPage = () => {
     document.getElementById('maindiv')?.focus();
   }, [router.isReady]);
 
+  // 🎉 Confetti celebration (dynamic import)
+  const celebrate = async () => {
+    const confetti = (await import("canvas-confetti")).default;
+    confetti({
+      particleCount: 160,
+      spread: 100,
+      origin: { y: 0.6 }
+    });
+  };
+
   const nextQuestion = () => {
     const nextIndex = (index + 1) % questions.length;
     setIndex(nextIndex);
     setQuestion(questions[nextIndex]);
+
+    if (nextIndex === questions.length - 1) {
+      celebrate();
+    }
   };
 
   const prevQuestion = () => {
@@ -106,9 +108,7 @@ const Game: NextPage = () => {
 
   const handlers = useSwipeable({
     onSwipedLeft: nextQuestion,
-    onSwipedRight: prevQuestion,
-    onSwipeStart: () => setStopScroll(true),
-    onSwiped: () => setStopScroll(false)
+    onSwipedRight: prevQuestion
   });
 
   const getYear = () => new Date().getFullYear();
@@ -132,7 +132,7 @@ const Game: NextPage = () => {
       </Head>
 
       <div className="absolute top-4 right-4">
-            <ThemeToggle /> 
+        <ThemeToggle /> 
       </div>
 
       <div className="fixmobilevh flex flex-col">
@@ -153,6 +153,35 @@ const Game: NextPage = () => {
             onClick={nextQuestion}
           >
             {question}
+          </div>
+        </div>
+
+        {/* Navigation buttons */}
+        <div className="flex justify-center gap-4 mt-4">
+          <button
+            onClick={prevQuestion}
+            className="px-6 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-600 transition"
+          >
+            ⬅ Өмнөх
+          </button>
+          <button
+            onClick={nextQuestion}
+            className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-500 transition"
+          >
+            Дараах ➡
+          </button>
+        </div>
+
+        {/* Progress bar */}
+        <div className="w-full max-w-3xl mx-auto mt-4">
+          <div className="h-3 bg-gray-700 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-pink-500 to-purple-500 transition-all duration-500"
+              style={{ width: `${((index + 1) / questions.length) * 100}%` }}
+            />
+          </div>
+          <div className="text-center text-sm text-gray-400 mt-1">
+            {index + 1} / {questions.length}
           </div>
         </div>
 
