@@ -38,6 +38,7 @@ const Home: NextPage = () => {
         <meta name="тайлбар" content="Хөгжилтэй, сурталчилгаагүй уух тоглоом." />
         <meta name="keywords" content="truth or drink, хариул эсвэл уу, уух тоглоом, party game, +21 game, даалгавар, хутга асуулт, hutga asuult" />
         <link rel="icon" href="/favicon.ico" />
+       <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" strategy="afterInteractive" data-ad-client="ca-pub-8122578275071473"/>
       </Head>
       <div className="absolute top-4 left-4">
         {/* Replace with your actual theme toggle component */}
