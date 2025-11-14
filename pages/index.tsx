@@ -7,74 +7,65 @@ import ThemeToggle from '../components/ThemeToggle';
 const Home: NextPage = () => {
   return (
     <div className="h-full">
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W9M7TVKHRZ"/>
-      <Script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-W9M7TVKHRZ');
-          `,
-        }}
-        
-      />
-
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-GNSGGMNMF1"/>
-      <Script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-GNSGGMNMF1');
-          `,
-        }}
-      />
-      
       <Head>
         <title>Хариул эсвэл Уу</title>
         <meta name="тайлбар" content="Хөгжилтэй, сурталчилгаагүй уух тоглоом." />
         <meta name="keywords" content="truth or drink, хариул эсвэл уу, уух тоглоом, party game, +21 game, даалгавар, хутга асуулт, hutga asuult" />
         <link rel="icon" href="/favicon.ico" />
-       <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" strategy="afterInteractive" data-ad-client="ca-pub-8122578275071473"/>
       </Head>
+
+      {/* Google Analytics */}
+      <Script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-W9M7TVKHRZ"
+        strategy="afterInteractive"
+      />
+      <Script
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-W9M7TVKHRZ');
+            gtag('config', 'G-GNSGGMNMF1');
+          `,
+        }}
+      />
+
+      {/* Google AdSense */}
+      <Script
+        async
+        strategy="afterInteractive"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        data-ad-client="ca-pub-8122578275071473"
+        crossOrigin="anonymous"
+      />
+
       <div className="absolute top-4 left-4">
-        {/* Replace with your actual theme toggle component */}
-           <Link 
-    href="/add-question" 
-    className="inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold text-base hover:from-green-600 hover:to-green-700 transition"
-  >
-    ➕ Асуулт нэмэх
-  </Link>
+        <Link 
+          href="/add-question" 
+          className="inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold text-base hover:from-green-600 hover:to-green-700 transition"
+        >
+          ➕ Асуулт нэмэх
+        </Link>
       </div>
 
-        <div className="absolute top-4 right-4">
-        {/* Replace with your actual theme toggle component */}
-           <ThemeToggle /> 
+      <div className="absolute top-4 right-4">
+        <ThemeToggle /> 
       </div>
 
       <div className="container flex mx-auto p-4 fixmobilevh">
         <div className="m-auto">
-          {/* <div className="select-none text-4xl text-header font-semibold mx-auto text-center align-middle pb-2">
-            Хариул <span className="text-xl align-middle">эсвэл</span> Уу
-          </div> */}
-        <div className="w-full max-w-4xl mx-auto px-4 pt-14 pb-12 text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 drop-shadow-lg leading-tight capitalize">
-            🎉 ХАРИУЛ <span className="capitalize">ЭСВЭЛ</span> УУ 🍹
-          </h1>
-        </div>  
+          <div className="w-full max-w-4xl mx-auto px-4 pt-14 pb-12 text-center">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 drop-shadow-lg leading-tight capitalize">
+              🎉 ХАРИУЛ <span className="capitalize">ЭСВЭЛ</span> УУ 🍹
+            </h1>
+          </div>  
 
-
-         <div className="text-center mt-6">
- 
-</div>
-
-
-         <div className="select-none text-center font-bold max-w-fit px-4 m-auto text-[#8D889F] pb-4 pt-4 text-2xl">
-  Асуултын&nbsp;төрөл:
-</div>
+          <div className="select-none text-center font-bold max-w-fit px-4 m-auto text-[#8D889F] pb-4 pt-4 text-2xl">
+            Асуултын&nbsp;төрөл:
+          </div>
 
           <div className="grid grid-cols-2 gap-4">
             <Link href='/game?mode=normal'>
@@ -112,10 +103,27 @@ const Home: NextPage = () => {
             </div>
           </Link>
 
+          {/* Example Ad Unit */}
+          <div className="my-8">
+            <ins className="adsbygoogle"
+              style={{ display: 'block', textAlign: 'center' }}
+              data-ad-client="ca-pub-8122578275071473"
+              data-ad-slot="1234567890"
+              data-ad-format="auto"
+              data-full-width-responsive="true"></ins>
+            <Script
+              id="ads-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
+              }}
+            />
+          </div>
+
         </div>
       </div>
     </div>
   )
 }
 
-export default Home
+export default Home;
